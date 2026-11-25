@@ -1,4 +1,4 @@
-<title>WORKLINK</title>
+<title>Lekwa WorkLink</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <script>
 /* Brand fonts load only when data saver is off (about 120 KB saved). */
@@ -42,7 +42,10 @@ button { cursor: pointer; }
 /* Top bar */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--navy); color: var(--on-brand); }
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
-.brand { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.15rem; letter-spacing: .01em; background: none; border: 0; padding: 0; color: inherit; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.2rem; letter-spacing: .01em; background: none; border: 0; padding: 0; color: inherit; text-align: left; white-space: nowrap; }
+.brand .wm { display: grid; line-height: 1; }
+.brand small { font-size: .58rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--teal-hi); margin-bottom: 2px; }
+.who select { max-width: 132px; }
 .brand svg { width: 30px; height: 30px; }
 .who { display: flex; align-items: center; gap: 8px; font-size: .85rem; }
 .who select { background: var(--navy-2); color: #fff; border: 1px solid #ffffff30; border-radius: 10px; padding: 6px 8px; }
@@ -157,9 +160,9 @@ footer .wrap { padding-block: 24px 40px; color: var(--muted); font-size: .85rem;
 
 <header class="top">
   <div class="wrap">
-    <button class="brand" id="home-btn" aria-label="WORKLINK home">
+    <button class="brand" id="home-btn" aria-label="Lekwa WorkLink home">
       <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13305a"/><path d="M6.5 10l4.6 12L16 13.5 20.9 22l4.6-12" fill="none" stroke="#2bb5ae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      WORKLINK
+      <span class="wm"><small>Lekwa</small>WorkLink</span>
     </button>
     <div class="who">
       <label for="role" class="sr" style="position:absolute;left:-9999px">View as</label>
@@ -179,7 +182,7 @@ footer .wrap { padding-block: 24px 40px; color: var(--muted); font-size: .85rem;
 <div class="prefs"><div class="wrap" id="prefs"></div></div>
 <main id="app"></main>
 <footer><div class="wrap">
-  <p><strong>WORKLINK demo.</strong> Everything you do here is saved only on this device. No real jobs, people or payments.</p>
+  <p><strong>Lekwa WorkLink demo.</strong> Everything you do here is saved only on this device. No real jobs, people or payments.</p>
   <p>Free for job seekers, always. A Reminisce Tech product, part of Reminisce Group.</p>
   <p><button class="linkish" id="reset">Reset demo data</button></p>
 </div></footer>
@@ -200,31 +203,16 @@ const PLANS = { starter: ["Starter ad", "R149 per job"], featured: ["Featured ad
 const SHIELD = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>';
 const WA_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg>';
 
-/* Draft translations: to be checked by native isiZulu and Sesotho speakers before launch. */
 const T = {
   en: { jobs: "Find jobs", apps: "My applications", saved: "Saved", cv: "My CV", profile: "Profile",
-    hello: "Hello {n}. Find work near you.", sub: "Jobs, learnerships and internships. Free for job seekers, always.",
+    hello: "Sawubona {n}. Find work near you.", sub: "Jobs, learnerships and internships. Free for job seekers, always.",
     search: "Job title or keyword, e.g. cashier", allTowns: "All towns", allTypes: "All types", open: "{n} open jobs",
-    neverTitle: "WORKLINK never charges you.", never: "No real employer asks for money to apply, for training, uniforms or to get the job. If anyone asks you to pay, it is a scam. Report it.",
+    neverTitle: "Lekwa WorkLink never charges you.", never: "No real employer asks for money to apply, for training, uniforms or to get the job. If anyone asks you to pay, it is a scam. Report it.",
     verified: "Verified employer", apply: "Apply now, free", saveJob: "Save job", savedJob: "Saved ✓", share: "Share on WhatsApp", report: "Report this job",
     send: "Send application", quick: "Quick CV, no experience needed", pdf: "Download PDF", lang: "Language", saver: "Data saver",
-    draft: "isiZulu and Sesotho are draft translations." },
-  zu: { jobs: "Funa umsebenzi", apps: "Izicelo zami", saved: "Okugciniwe", cv: "I-CV yami", profile: "Iphrofayela",
-    hello: "Sawubona {n}. Thola umsebenzi eduze kwakho.", sub: "Imisebenzi, ama-learnership nama-internship. Mahhala kubafuna umsebenzi, njalo.",
-    search: "Igama lomsebenzi, isib. ukhasha", allTowns: "Wonke amadolobha", allTypes: "Zonke izinhlobo", open: "Imisebenzi evulekile: {n}",
-    neverTitle: "I-WORKLINK ayikukhokhisi lutho.", never: "Awekho umqashi weqiniso ocela imali ukuze ufake isicelo, uqeqeshwe, uthole umfaniswano noma umsebenzi. Uma umuntu ethi khokha, kuwumkhonyovu. Wubike.",
-    verified: "Umqashi oqinisekisiwe", apply: "Faka isicelo, mahhala", saveJob: "Gcina umsebenzi", savedJob: "Kugciniwe ✓", share: "Yabelana ku-WhatsApp", report: "Bika lo msebenzi",
-    send: "Thumela isicelo", quick: "I-CV esheshayo, akudingeki ulwazi", pdf: "Landa i-PDF", lang: "Ulimi", saver: "Onga idatha",
-    draft: "Lokhu kuhunyushwa kusazohlolwa." },
-  st: { jobs: "Batla mosebetsi", apps: "Dikopo tsa ka", saved: "Tse bolokilweng", cv: "CV ya ka", profile: "Profaele",
-    hello: "Dumela {n}. Fumana mosebetsi haufi le wena.", sub: "Mesebetsi, di-learnership le di-internship. Mahala ho ba batlang mosebetsi, kamehla.",
-    search: "Lebitso la mosebetsi, mohl. cashier", allTowns: "Ditoropo tsohle", allTypes: "Mefuta yohle", open: "Mesebetsi e bulehileng: {n}",
-    neverTitle: "WORKLINK ha e o lefise letho.", never: "Ha ho mohiri wa nnete ya kopang tjhelete bakeng sa kopo, thupelo, junifomo kapa ho fumana mosebetsi. Ha motho a re o lefe, ke bomenemene. E tlalehe.",
-    verified: "Mohiri ya netefaditsweng", apply: "Etsa kopo, mahala", saveJob: "Boloka mosebetsi", savedJob: "E bolokilwe ✓", share: "Arolelana ho WhatsApp", report: "Tlaleha mosebetsi ona",
-    send: "Romela kopo", quick: "CV e potlakileng, ha ho hlokehe boiphihlelo", pdf: "Jarolla PDF", lang: "Puo", saver: "Boloka data",
-    draft: "Phetolelo ena e sa ntse e tla hlahlojwa." },
+  },
 };
-const t = (k, n) => ((T[S.prefs.lang] || T.en)[k] || T.en[k]).replace("{n}", n);
+const t = (k, n) => T.en[k].replace("{n}", n);
 const REPORT_REASONS = { money: "Asks applicants to pay money", fake: "Job or company looks fake", wrong: "Wrong or misleading details", offensive: "Offensive or unfair to some people", other: "Something else" };
 const PIECE = ["Car washing", "Gardening", "Cleaning houses", "Looking after children", "Selling (spaza or street)", "Farm work", "Helping a builder", "Hair and nails", "Cooking for events"];
 const VOLUNTEER = ["Church or youth group", "Community clean-up", "Soup kitchen", "Helping at a school", "Sports coaching", "Caring for a sick family member"];
@@ -329,7 +317,7 @@ const job = id => S.jobs.find(j => j.id === id);
 const person = id => id === "me" ? { ...S.me, headline: S.cv.objective, skills: S.cv.skills.split(",").map(s => s.trim()), exp: (S.cv.experience[0] ? `${S.cv.experience[0].role}, ${S.cv.experience[0].org}` : "") } : S.others.find(o => o.id === id);
 const openJob = j => j.status === "published" && daysLeft(j.closing) >= 0;
 const shieldBox = () => `<div class="shield" role="note">${SHIELD}<p><strong>${t("neverTitle")}</strong> ${t("never")}</p></div>`;
-const waText = j => { const e = emp(j.employerId); return `Job: ${j.title}\n${e.name}${e.verified ? " (verified employer)" : ""}, ${j.town}\n${salary(j)} · ${closes(j.closing)}\nApply free on WORKLINK. Never pay anyone for a job.`; };
+const waText = j => { const e = emp(j.employerId); return `Job: ${j.title}\n${e.name}${e.verified ? " (verified employer)" : ""}, ${j.town}\n${salary(j)} · ${closes(j.closing)}\nApply free on Lekwa WorkLink. Never pay anyone for a job.`; };
 const notify = (to, text) => S.notes.unshift({ id: uid("n"), to, text, at: new Date().toISOString(), read: false });
 const inbox = () => S.notes.filter(n => n.to === (S.role === "seeker" ? "me" : S.role === "employer" ? S.myEmployer : "admin"));
 
@@ -358,10 +346,8 @@ function render() {
   const openReports = S.reports.filter(r => r.status === "open").length;
   $("#tabs").innerHTML = tabs.map(([k, l]) => `<button data-tab="${k}" ${tab[S.role] === k ? 'aria-current="page"' : ""}>${S.role === "seeker" ? t(l) : l}${k === "reports" && openReports ? ` (${new Set(S.reports.filter(r => r.status === "open").map(r => r.jobId)).size})` : ""}</button>`).join("");
   document.body.classList.toggle("lite", !!S.prefs.dataSaver);
-  document.documentElement.lang = S.prefs.lang === "zu" ? "zu" : S.prefs.lang === "st" ? "st" : "en-ZA";
-  $("#prefs").innerHTML = `<span class="seg" role="group" aria-label="${t("lang")}">${[["en", "English"], ["zu", "isiZulu"], ["st", "Sesotho"]].map(([k, l]) => `<button data-lang="${k}" aria-pressed="${S.prefs.lang === k}">${l}</button>`).join("")}</span>
-    <label class="switch" for="saver"><input type="checkbox" id="saver" ${S.prefs.dataSaver ? "checked" : ""}> ${t("saver")}</label>
-    ${S.prefs.lang !== "en" ? `<span class="muted small">${t("draft")}</span>` : ""}`;
+  document.documentElement.lang = "en-ZA";
+  $("#prefs").innerHTML = `<label class="switch" for="saver"><input type="checkbox" id="saver" ${S.prefs.dataSaver ? "checked" : ""}> ${t("saver")}</label>`;
   const unread = inbox().filter(n => !n.read).length;
   const b = $("#bell-count"); b.hidden = !unread; b.textContent = unread;
   const view = VIEWS[S.role][tab[S.role]];
@@ -418,7 +404,7 @@ function jobDetail(id) {
       <button class="btn plain sm" data-close-btn aria-label="Close">Close</button></div>
     <div class="row"><span class="chip">${TYPES[j.type]}</span><span class="chip">${esc(j.town)}</span><span class="chip salary">${salary(j)}</span>
       <span class="chip ${daysLeft(j.closing) <= 5 ? "amber" : ""}">${closes(j.closing)}</span></div>
-    ${e.verified ? `<p class="ok">✓ ${t("verified")}. WORKLINK checked this company's registration and spoke to a real person there.</p>`
+    ${e.verified ? `<p class="ok">✓ ${t("verified")}. Lekwa WorkLink checked this company's registration and spoke to a real person there.</p>`
       : '<p class="notice">This employer is not verified yet. Be careful and never pay money.</p>'}
     <div><h3>About the job</h3><p>${esc(j.desc)}</p></div>
     <div><h3>What you need</h3><p>${esc(j.reqs)}</p><p class="muted small">Minimum: ${esc(j.qual)} · Category: ${esc(j.category)}</p></div>
@@ -745,8 +731,8 @@ function makePdf(jsPDF) {
   const refs = c.references.filter(r => r.name);
   head("References"); if (refs.length) refs.forEach(r => { text(r.name, 11, ink, "bold", 0.5); text([r.rel, r.phone].filter(Boolean).join(" · "), 10, grey, "normal", 2.5); }); else text("Available on request.", 10.5, ink);
   const certs = S.docs.filter(d => d.kind !== "ID").length;
-  if (certs) { head("Certificates"); text(`${certs} certificate copy(ies) available, sent with applications on WORKLINK.`, 10.5, ink); }
-  doc.setFontSize(8); doc.setTextColor(...grey); doc.text("CV made free on WORKLINK", L, 290);
+  if (certs) { head("Certificates"); text(`${certs} certificate copy(ies) available, sent with applications on Lekwa WorkLink.`, 10.5, ink); }
+  doc.setFontSize(8); doc.setTextColor(...grey); doc.text("CV made free on Lekwa WorkLink", L, 290);
   return doc.output("arraybuffer");
 }
 async function downloadPdf(btn) {
@@ -819,7 +805,6 @@ document.addEventListener("click", e => {
     render(); return toast("Application withdrawn. The employer can no longer see your CV.");
   }
   if (d.tpl) { S.cv.template = d.tpl; return render(); }
-  if (d.lang) { S.prefs.lang = d.lang; return render(); }
   if (d.report) {
     sheet(`<h2>${t("report")}</h2><p class="muted">${esc(job(d.report).title)}. Our team checks every report within a day. The employer won't see your name.</p>
       <form id="report-form" data-job="${d.report}" class="list"><fieldset><legend>What is wrong?</legend>
@@ -832,7 +817,7 @@ document.addEventListener("click", e => {
     const r = S.reports.find(x => x.id === d.removeJob), j = job(r.jobId); j.status = "removed";
     S.reports.filter(x => x.jobId === r.jobId && x.status === "open").forEach(x => x.status = "removed");
     notify(j.employerId, `Your job "${j.title}" was removed after reports from job seekers.`);
-    render(); return toast("Job removed from WORKLINK");
+    render(); return toast("Job removed from Lekwa WorkLink");
   }
   if (d.dismiss) { S.reports.filter(x => x.jobId === d.dismiss && x.status === "open").forEach(x => x.status = "dismissed"); render(); return toast("Reports dismissed. Job stays live."); }
   if (btn.id === "quick-cv") return quickCv();
@@ -920,7 +905,7 @@ document.addEventListener("change", e => {
   if (el.id === "saver") {
     S.prefs.dataSaver = el.checked;
     if (el.checked) { const l = document.getElementById("brand-fonts"); if (l) l.remove(); }
-    render(); return toast(el.checked ? "Data saver on" : "Data saver off. Brand fonts load next time you open WORKLINK.");
+    render(); return toast(el.checked ? "Data saver on" : "Data saver off. Brand fonts load next time you open Lekwa WorkLink.");
   }
   if (el.id === "doc-file") { const file = el.files && el.files[0]; if (file) addDoc(file, $("#doc-kind").value); el.value = ""; return; }
   if (el.id === "f-type") { filters.type = el.value; return render(); }
