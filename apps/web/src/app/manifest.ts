@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "WORKLINK",
-    short_name: "WORKLINK",
+    name: "Lekwa WorkLink",
+    short_name: "WorkLink",
     description: "Jobs, learnerships and a free CV builder for South Africa.",
     start_url: "/",
     display: "standalone",

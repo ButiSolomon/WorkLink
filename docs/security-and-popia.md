@@ -1,6 +1,6 @@
 # Security and POPIA checklist
 
-WORKLINK holds CVs, contact details, qualifications and work history. This checklist tracks what the code
+Lekwa WorkLink holds CVs, contact details, qualifications and work history. This checklist tracks what the code
 already does and what still needs a decision or a document before launch.
 
 | Requirement | Status |

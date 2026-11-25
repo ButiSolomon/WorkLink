@@ -9,13 +9,13 @@ const figtree = Figtree({ variable: "--font-figtree", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "WORKLINK – Jobs, learnerships and CVs in Standerton",
-    template: "%s · WORKLINK",
+    default: "Lekwa WorkLink – Jobs, learnerships and CVs in Standerton",
+    template: "%s · Lekwa WorkLink",
   },
   description:
     "Find local jobs, learnerships and internships, build a free CV and apply from your phone. Free for job seekers.",
-  applicationName: "WORKLINK",
-  appleWebApp: { capable: true, title: "WORKLINK", statusBarStyle: "default" },
+  applicationName: "Lekwa WorkLink",
+  appleWebApp: { capable: true, title: "Lekwa WorkLink", statusBarStyle: "default" },
   formatDetection: { telephone: false },
 };
 

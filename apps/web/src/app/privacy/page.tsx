@@ -8,17 +8,17 @@ export default function PrivacyPage() {
     <article className="mx-auto max-w-3xl px-4 py-10 leading-relaxed">
       <h1 className="font-display text-3xl font-extrabold text-navy-900">Privacy and your information</h1>
       <p className="mt-2 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-700">
-        Draft. This notice will be finalised before WORKLINK launches.
+        Draft. This notice will be finalised before Lekwa WorkLink launches.
       </p>
       <div className="mt-6 space-y-4 text-ink">
         <p>
-          WORKLINK, a Reminisce Tech product, processes your personal information under the Protection of
+          Lekwa WorkLink, a Reminisce Tech product, processes your personal information under the Protection of
           Personal Information Act (POPIA) so that you can find work and apply for jobs.
         </p>
         <h2 className="font-display text-xl font-bold text-navy-900">What employers can see</h2>
         <p>
           Employers only see your profile and CV when you apply to one of their jobs. If you withdraw an
-          application, that employer can no longer open your CV on WORKLINK.
+          application, that employer can no longer open your CV on Lekwa WorkLink.
         </p>
         <h2 className="font-display text-xl font-bold text-navy-900">Your choices</h2>
         <p>
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           any time. You can ask us to delete your account and information.
         </p>
         <h2 className="font-display text-xl font-bold text-navy-900">Free for job seekers</h2>
-        <p>WORKLINK never charges job seekers for searching, building a CV, applying or getting an interview.</p>
+        <p>Lekwa WorkLink never charges job seekers for searching, building a CV, applying or getting an interview.</p>
       </div>
     </article>
   );

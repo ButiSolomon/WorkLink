@@ -1,8 +1,8 @@
-# WORKLINK
+# Lekwa WorkLink
 
 **Opportunities. Employment. Growth.**
 
-WORKLINK is a mobile-first job platform (Progressive Web App) launching in Standerton, Lekwa Local Municipality,
+Lekwa WorkLink is a mobile-first job platform (Progressive Web App) launching in Standerton, Lekwa Local Municipality,
 Mpumalanga, then expanding across South Africa. It connects job seekers with employers, learnerships and internships.
 
 - **Free for job seekers, always:** search, CV builder, PDF download, applications and tracking.
