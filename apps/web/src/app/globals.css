@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+/* WORKLINK brand tokens (see docs/brand.md) */
+@theme {
+  --color-navy-950: #071427;
+  --color-navy-900: #0b1f3a;
+  --color-navy-800: #13305a;
+  --color-navy-700: #1e4174;
+  --color-teal-700: #0a7c78;
+  --color-teal-600: #0e918c;
+  --color-teal-400: #2bb5ae;
+  --color-teal-50: #e8f6f5;
+  --color-amber-700: #b45309;
+  --color-amber-50: #fef3e2;
+  --color-ink: #0f1b2d;
+  --color-muted: #52607a;
+  --color-line: #dde3ec;
+  --color-paper: #f6f8fb;
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-teal-400);
+  outline-offset: 2px;
+}
