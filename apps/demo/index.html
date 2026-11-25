@@ -1,0 +1,682 @@
+<title>WORKLINK</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-first app shell. Navy top bar, role tabs, one column of cards, bottom nav on phones. */
+:root {
+  --navy: #0b1f3a; --navy-2: #13305a; --navy-deep: #071427;
+  --teal: #0a7c78; --teal-hi: #2bb5ae; --teal-soft: #e5f4f3;
+  --amber: #b45309; --amber-soft: #fdf0dd;
+  --red: #b42318; --red-soft: #fdecea;
+  --bg: #f4f6fa; --card: #ffffff; --fg: #0f1b2d; --muted: #56647c; --line: #dce2eb; --field: #ffffff;
+  --on-brand: #ffffff; --on-teal: #ffffff;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --teal: #2bb5ae; --teal-soft: #0f3434; --amber: #f2a54a; --amber-soft: #3a2711; --red: #f97066; --red-soft: #3d1714;
+  --bg: #08111f; --card: #0f1c30; --fg: #e8eef7; --muted: #9aa8bd; --line: #22324b; --field: #0b1626; --on-teal: #071427; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --teal: #2bb5ae; --teal-soft: #0f3434; --amber: #f2a54a; --amber-soft: #3a2711; --red: #f97066; --red-soft: #3d1714;
+  --bg: #08111f; --card: #0f1c30; --fg: #e8eef7; --muted: #9aa8bd; --line: #22324b; --field: #0b1626; --on-teal: #071427; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 16px/1.5 var(--body); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--navy); }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; }
+h1 { font-size: 1.8rem; font-weight: 800; }
+h2 { font-size: 1.3rem; font-weight: 800; }
+h3 { font-size: 1.08rem; font-weight: 600; }
+p { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--teal-hi); outline-offset: 2px; }
+.wrap { max-width: 760px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Top bar */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: var(--navy); color: var(--on-brand); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 800; font-size: 1.15rem; letter-spacing: .01em; background: none; border: 0; padding: 0; color: inherit; }
+.brand svg { width: 30px; height: 30px; }
+.who { display: flex; align-items: center; gap: 8px; font-size: .85rem; }
+.who select { background: var(--navy-2); color: #fff; border: 1px solid #ffffff30; border-radius: 10px; padding: 6px 8px; }
+.bell { position: relative; background: none; border: 0; color: #fff; padding: 6px; }
+.bell b { position: absolute; top: 0; right: 0; background: var(--teal-hi); color: var(--navy); font-size: .7rem; min-width: 18px; height: 18px; border-radius: 9px; display: grid; place-items: center; }
+
+/* Tabs */
+.tabs { background: var(--navy); border-top: 1px solid #ffffff14; }
+.tabs .wrap { display: flex; gap: 4px; overflow-x: auto; padding-block: 0; scrollbar-width: none; }
+.tabs button { background: none; border: 0; color: #ffffffb0; padding: 12px 12px; font-weight: 600; white-space: nowrap; border-bottom: 3px solid transparent; }
+.tabs button[aria-current="page"] { color: #fff; border-bottom-color: var(--teal-hi); }
+
+main .wrap { padding-block: 20px 48px; display: grid; gap: 16px; }
+.hero { background: var(--navy); color: #fff; border-radius: 0 0 22px 22px; }
+.hero .wrap { padding-block: 8px 22px; display: grid; gap: 10px; }
+.eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--teal-hi); }
+.hero p { color: #ffffffc8; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 16px; display: grid; gap: 10px; min-width: 0; }
+.list { display: grid; gap: 10px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.between { display: flex; gap: 10px; justify-content: space-between; align-items: flex-start; }
+.muted { color: var(--muted); }
+.small { font-size: .875rem; }
+.chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 99px; font-size: .78rem; font-weight: 700; background: var(--bg); color: var(--fg); border: 1px solid var(--line); white-space: nowrap; }
+.chip.teal { background: var(--teal-soft); color: var(--teal); border-color: transparent; }
+.chip.amber { background: var(--amber-soft); color: var(--amber); border-color: transparent; }
+.chip.red { background: var(--red-soft); color: var(--red); border-color: transparent; }
+.chip.navy { background: var(--fg); color: var(--bg); border-color: transparent; }
+
+.btn { border: 0; border-radius: 12px; padding: 11px 16px; font-weight: 700; background: var(--teal); color: var(--on-teal); min-height: 44px; }
+.btn.ghost { background: transparent; color: var(--teal); border: 1.5px solid var(--teal); }
+.btn.plain { background: var(--bg); color: var(--fg); border: 1px solid var(--line); }
+.btn.danger { background: transparent; color: var(--red); border: 1.5px solid var(--red); }
+.btn.sm { min-height: 36px; padding: 6px 12px; font-size: .875rem; border-radius: 10px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.linkish { background: none; border: 0; color: var(--teal); font-weight: 700; padding: 0; }
+
+label { display: grid; gap: 4px; font-weight: 600; font-size: .9rem; }
+input, select, textarea { width: 100%; border: 1px solid var(--line); background: var(--field); color: var(--fg); border-radius: 10px; padding: 10px 12px; min-height: 44px; font-weight: 400; }
+textarea { min-height: 90px; resize: vertical; }
+.grid2 { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+@media (max-width: 520px) { .grid2 { grid-template-columns: 1fr; } }
+.check { display: flex; gap: 10px; align-items: flex-start; font-weight: 400; }
+.check input { width: 20px; min-height: 20px; height: 20px; margin-top: 2px; accent-color: var(--teal); }
+
+.search { display: grid; gap: 8px; grid-template-columns: 1fr; background: var(--card); padding: 8px; border-radius: 16px; }
+@media (min-width: 620px) { .search { grid-template-columns: 1fr 160px 160px; } }
+
+.job { cursor: pointer; text-align: left; width: 100%; color: inherit; font: inherit; }
+.job:hover { border-color: var(--teal); }
+.salary { font-variant-numeric: tabular-nums; }
+.notice { background: var(--amber-soft); color: var(--amber); border-radius: 12px; padding: 10px 14px; font-size: .875rem; }
+.ok { background: var(--teal-soft); color: var(--teal); border-radius: 12px; padding: 10px 14px; font-weight: 600; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; }
+.stat b { display: block; font-family: var(--display); font-size: 1.6rem; font-variant-numeric: tabular-nums; }
+.timeline { display: flex; gap: 4px; }
+.timeline span { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+.timeline span.on { background: var(--teal); }
+.timeline.bad span.on { background: var(--red); }
+.empty { text-align: center; padding: 28px 16px; color: var(--muted); }
+hr { border: 0; border-top: 1px solid var(--line); margin: 4px 0; width: 100%; }
+
+/* CV preview */
+.cv { background: #fff; color: #172033; border-radius: 10px; padding: 22px; border: 1px solid var(--line); font-size: .9rem; display: grid; gap: 12px; }
+.cv h2 { font-size: 1.45rem; color: #0b1f3a; }
+.cv h4 { margin: 0 0 4px; font-family: var(--display); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: #0a7c78; }
+.cv.modern { border-top: 10px solid #0b1f3a; }
+.cv.modern h4 { color: #0b1f3a; border-bottom: 2px solid #2bb5ae; padding-bottom: 2px; }
+.cv.simple h4 { color: #172033; }
+.cv .item { display: grid; gap: 1px; margin-bottom: 6px; }
+.cv .meta { color: #5b6880; font-size: .82rem; }
+.tpl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tpl button { border: 2px solid var(--line); background: var(--card); border-radius: 12px; padding: 10px 6px; font-weight: 700; }
+.tpl button[aria-pressed="true"] { border-color: var(--teal); color: var(--teal); }
+.repeat { border: 1px dashed var(--line); border-radius: 12px; padding: 12px; display: grid; gap: 8px; }
+
+/* Sheet (job detail, apply, etc.) */
+.sheet-bg { position: fixed; inset: 0; background: #0009; z-index: 20; display: flex; align-items: flex-end; justify-content: center; }
+.sheet { background: var(--card); width: 100%; max-width: 640px; max-height: 92vh; overflow-y: auto; border-radius: 20px 20px 0 0; padding: 20px max(16px, env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 14px; }
+@media (min-width: 700px) { .sheet-bg { align-items: center; } .sheet { border-radius: 20px; } }
+.toast { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(20px + env(safe-area-inset-bottom, 0px)); background: var(--navy); color: #fff; padding: 12px 18px; border-radius: 12px; z-index: 30; font-weight: 600; box-shadow: 0 8px 24px #0004; max-width: calc(100% - 32px); }
+footer .wrap { padding-block: 24px 40px; color: var(--muted); font-size: .85rem; display: grid; gap: 6px; }
+@media (prefers-reduced-motion: no-preference) { .sheet { animation: up .2s ease-out; } @keyframes up { from { transform: translateY(24px); opacity: .6; } } }
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <button class="brand" id="home-btn" aria-label="WORKLINK home">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#13305a"/><path d="M6.5 10l4.6 12L16 13.5 20.9 22l4.6-12" fill="none" stroke="#2bb5ae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      WORKLINK
+    </button>
+    <div class="who">
+      <label for="role" class="sr" style="position:absolute;left:-9999px">View as</label>
+      <select id="role" aria-label="View as">
+        <option value="seeker">Job seeker</option>
+        <option value="employer">Employer</option>
+        <option value="admin">Admin</option>
+      </select>
+      <button class="bell" id="bell" aria-label="Notifications">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+        <b id="bell-count" hidden>0</b>
+      </button>
+    </div>
+  </div>
+</header>
+<nav class="tabs" aria-label="Sections"><div class="wrap" id="tabs"></div></nav>
+<main id="app"></main>
+<footer><div class="wrap">
+  <p><strong>WORKLINK demo.</strong> Everything you do here is saved only on this device. No real jobs, people or payments.</p>
+  <p>Free for job seekers, always. A Reminisce Tech product, part of Reminisce Group.</p>
+  <p><button class="linkish" id="reset">Reset demo data</button></p>
+</div></footer>
+<div id="layer"></div>
+
+<script>
+(() => {
+"use strict";
+const KEY = "worklink-demo-v1";
+const TOWNS = ["Standerton", "Sakhile", "Morgenzon", "Thuthukani"];
+const TYPES = { full_time: "Full-time", part_time: "Part-time", contract: "Contract", temporary: "Temporary", learnership: "Learnership", internship: "Internship" };
+const CATS = ["Agriculture and Farming", "Retail and Sales", "Admin and Office", "Transport and Logistics", "Manufacturing", "Security", "Hospitality", "Construction and Trades", "Healthcare", "Learnerships and Internships"];
+const QUALS = ["No formal qualification", "Grade 10", "Grade 11", "Matric (Grade 12)", "Certificate", "Diploma", "Degree"];
+const FLOW = ["submitted", "viewed", "shortlisted", "interview", "hired"];
+const STATUS = { submitted: "Submitted", viewed: "Viewed by employer", shortlisted: "Shortlisted", interview: "Interview", unsuccessful: "Not successful", hired: "Hired", withdrawn: "Withdrawn" };
+const PLANS = { starter: ["Starter ad", "R149 per job"], featured: ["Featured ad", "R249 per job"], pro: ["Business Pro", "R499 per month"] };
+
+const day = n => { const d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); };
+const uid = p => p + Math.random().toString(36).slice(2, 9);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const rand = n => "R" + Number(n).toLocaleString("en-ZA").replace(/,/g, " ");
+const salary = j => j.salaryMin && j.salaryMax && j.salaryMin !== j.salaryMax ? `${rand(j.salaryMin)} – ${rand(j.salaryMax)} pm` : j.salaryMin ? `${rand(j.salaryMin)} pm` : "Salary not stated";
+const daysLeft = d => Math.round((new Date(d) - new Date(day(0))) / 864e5);
+const closes = d => { const n = daysLeft(d); return n < 0 ? "Closed" : n === 0 ? "Closes today" : `Closes in ${n} day${n === 1 ? "" : "s"}`; };
+const when = iso => new Date(iso).toLocaleDateString("en-ZA", { day: "numeric", month: "short" });
+
+function seed() {
+  const now = new Date().toISOString();
+  const employers = [
+    { id: "e1", name: "Lekwa Dairy (demo)", town: "Standerton", industry: "Agriculture", verified: true, plan: "featured" },
+    { id: "e2", name: "Standerton Spar (demo)", town: "Standerton", industry: "Retail", verified: true, plan: "starter" },
+    { id: "e3", name: "Gert Sibande Skills Centre (demo)", town: "Sakhile", industry: "Education and training", verified: true, plan: "pro" },
+    { id: "e4", name: "Morgenzon Transport (demo)", town: "Morgenzon", industry: "Logistics", verified: false, plan: "starter" },
+  ];
+  const J = (id, employerId, title, town, type, cat, min, max, close, featured, desc, reqs, qual, status = "published") =>
+    ({ id, employerId, title, town, type, category: cat, salaryMin: min, salaryMax: max, closing: day(close), featured, desc, reqs, qual, status, posted: day(-3) });
+  const jobs = [
+    J("j1", "e1", "General Worker (Dairy)", "Standerton", "full_time", "Agriculture and Farming", 4800, 5500, 3, true,
+      "Help with milking, feeding and cleaning on a working dairy farm outside Standerton. Early starts, transport from Sakhile provided.",
+      "Able to do physical work. Farm experience is a plus but not required.", "No formal qualification"),
+    J("j2", "e2", "Cashier", "Standerton", "part_time", "Retail and Sales", 3200, 0, 9, false,
+      "Serve customers at the till, handle cash and card payments and keep the front of store tidy. Weekend shifts.",
+      "Matric. Good with numbers and friendly with customers.", "Matric (Grade 12)"),
+    J("j3", "e3", "Electrical Learnership (NQF 2)", "Sakhile", "learnership", "Learnerships and Internships", 2500, 2500, 14, true,
+      "12-month learnership with a monthly stipend. Classroom training plus workplace practice with local electricians.",
+      "Matric with Maths or Maths Literacy. Age 18 to 35. Unemployed.", "Matric (Grade 12)"),
+    J("j4", "e3", "Admin Intern", "Standerton", "internship", "Admin and Office", 3000, 3000, 21, false,
+      "Support the office team with filing, data capture, phones and learner records.",
+      "Matric. Basic computer skills (Word, Excel, email).", "Matric (Grade 12)"),
+    J("j5", "e1", "Tractor Driver", "Standerton", "contract", "Agriculture and Farming", 6500, 7500, 6, false,
+      "Six-month contract for planting season. Operate and do daily checks on tractors and implements.",
+      "Valid Code 8 or higher licence. At least 1 year tractor experience.", "No formal qualification"),
+    J("j6", "e4", "Code 10 Truck Driver", "Morgenzon", "full_time", "Transport and Logistics", 9000, 11000, 10, false,
+      "Deliver goods between Morgenzon, Standerton and Ermelo.", "Valid Code 10 (C1) licence and PrDP.", "Grade 10", "pending_review"),
+    J("j7", "e2", "Shelf Packer", "Standerton", "temporary", "Retail and Sales", 2800, 3000, 2, false,
+      "Festive season packing and stock counts. December to mid-January.", "Reliable and on time.", "No formal qualification"),
+  ];
+  const others = [
+    { id: "s2", name: "Sipho Nkosi", town: "Sakhile", headline: "Farm worker, 3 years on a dairy", qual: "Grade 11", phone: "071 *** **12",
+      skills: ["Milking", "Animal care", "Fencing"], exp: "General worker, Vaalbank Farm (2022 to now)" },
+    { id: "s3", name: "Lerato Mokoena", town: "Standerton", headline: "Matriculant looking for a first job", qual: "Matric (Grade 12)", phone: "082 *** **47",
+      skills: ["Customer service", "Cash handling", "isiZulu, Sesotho, English"], exp: "Volunteer, church soup kitchen" },
+    { id: "s4", name: "Bongani Dlamini", town: "Thuthukani", headline: "Tractor and forklift operator", qual: "Grade 10", phone: "073 *** **90",
+      skills: ["Code 8 licence", "Forklift", "Basic maintenance"], exp: "Driver, Thuthukani Co-op (2019 to 2024)" },
+  ];
+  const app = (id, jobId, applicantId, status, cover) => ({ id, jobId, applicantId, status, cover, notes: "", history: [{ s: "submitted", at: now }].concat(status !== "submitted" ? [{ s: status, at: now }] : []) });
+  return {
+    role: "seeker",
+    me: { id: "me", name: "Thandi Mahlangu", phone: "072 555 0134", email: "thandi@example.com", town: "Standerton", qual: "Matric (Grade 12)", signedUp: true,
+      consents: { terms: true, share: true, email: true, whatsapp: false } },
+    cv: {
+      template: "classic",
+      objective: "Hard-working matriculant from Standerton looking for my first job in retail or admin, where I can learn and grow.",
+      education: [{ what: "Matric (Grade 12)", where: "Hoërskool Standerton", year: "2024" }],
+      experience: [{ role: "Volunteer tutor", org: "Sakhile Library homework club", years: "2023 to 2024", did: "Helped Grade 8 and 9 learners with Maths homework twice a week." }],
+      skills: "Customer service, Basic computer skills (Word, email), Cash handling, isiZulu, English, Afrikaans",
+      references: [{ name: "Mrs N. Zwane", rel: "Librarian, Sakhile Library", phone: "017 *** ****" }],
+    },
+    employers, jobs, others,
+    myEmployer: "e1",
+    apps: [
+      app("a1", "j1", "s2", "shortlisted", "I have worked on a dairy for three years and can start immediately."),
+      app("a2", "j5", "s4", "submitted", "I have a Code 8 licence and five years of tractor work."),
+      app("a3", "j1", "s4", "viewed", ""),
+      app("a4", "j2", "me", "viewed", "I am friendly, good with numbers and live close to the store."),
+    ],
+    saved: ["j3"],
+    notes: [
+      { id: uid("n"), to: "me", text: "Your application for Cashier was viewed by Standerton Spar (demo).", at: now, read: false },
+      { id: uid("n"), to: "e1", text: "New applicant: Bongani Dlamini applied for Tractor Driver.", at: now, read: false },
+    ],
+  };
+}
+
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)); } catch { S = null; }
+if (!S || !S.jobs) S = seed();
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch {} };
+
+let tab = {};            // current tab per role
+let filters = { q: "", town: "", type: "" };
+const $ = s => document.querySelector(s);
+const app = $("#app"), layer = $("#layer");
+
+const emp = id => S.employers.find(e => e.id === id) || { name: "Unknown" };
+const job = id => S.jobs.find(j => j.id === id);
+const person = id => id === "me" ? { ...S.me, headline: S.cv.objective, skills: S.cv.skills.split(",").map(s => s.trim()), exp: (S.cv.experience[0] ? `${S.cv.experience[0].role}, ${S.cv.experience[0].org}` : "") } : S.others.find(o => o.id === id);
+const openJob = j => j.status === "published" && daysLeft(j.closing) >= 0;
+const notify = (to, text) => S.notes.unshift({ id: uid("n"), to, text, at: new Date().toISOString(), read: false });
+const inbox = () => S.notes.filter(n => n.to === (S.role === "seeker" ? "me" : S.role === "employer" ? S.myEmployer : "admin"));
+
+function toast(msg) {
+  const t = document.createElement("div"); t.className = "toast"; t.textContent = msg; t.setAttribute("role", "status");
+  document.body.appendChild(t); setTimeout(() => t.remove(), 2600);
+}
+function sheet(html) {
+  layer.innerHTML = `<div class="sheet-bg" data-close><div class="sheet" role="dialog" aria-modal="true">${html}</div></div>`;
+  const first = layer.querySelector("input, select, textarea, button"); if (first) first.focus();
+}
+const closeSheet = () => { layer.innerHTML = ""; };
+layer.addEventListener("click", e => { if (e.target.matches("[data-close]")) closeSheet(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+
+const TABS = {
+  seeker: [["jobs", "Find jobs"], ["apps", "My applications"], ["saved", "Saved"], ["cv", "My CV"], ["profile", "Profile"]],
+  employer: [["dash", "Dashboard"], ["post", "Post a job"], ["company", "Company"]],
+  admin: [["review", "Job review"], ["verify", "Employers"], ["overview", "Overview"]],
+};
+
+function render() {
+  $("#role").value = S.role;
+  const tabs = TABS[S.role];
+  if (!tab[S.role]) tab[S.role] = tabs[0][0];
+  $("#tabs").innerHTML = tabs.map(([k, l]) => `<button data-tab="${k}" ${tab[S.role] === k ? 'aria-current="page"' : ""}>${l}</button>`).join("");
+  const unread = inbox().filter(n => !n.read).length;
+  const b = $("#bell-count"); b.hidden = !unread; b.textContent = unread;
+  const view = VIEWS[S.role][tab[S.role]];
+  app.innerHTML = view();
+  save();
+}
+function go(t) { tab[S.role] = t; render(); window.scrollTo({ top: 0 }); }
+
+/* ---------- Job seeker ---------- */
+function jobCard(j, opts = {}) {
+  const e = emp(j.employerId), left = daysLeft(j.closing);
+  const applied = S.apps.some(a => a.jobId === j.id && a.applicantId === "me" && a.status !== "withdrawn");
+  return `<button class="card job" data-job="${j.id}">
+    <div class="between"><div style="min-width:0"><h3>${esc(j.title)}</h3><p class="muted small">${esc(e.name)} · ${esc(j.town)}</p></div>
+    ${j.featured ? '<span class="chip teal">Featured</span>' : ""}</div>
+    <div class="row">
+      <span class="chip">${TYPES[j.type]}</span><span class="chip salary">${salary(j)}</span>
+      <span class="chip ${left <= 5 ? "amber" : ""}">${closes(j.closing)}</span>
+      ${applied ? '<span class="chip navy">Applied</span>' : ""}${opts.extra || ""}
+    </div></button>`;
+}
+
+function vJobs() {
+  const q = filters.q.toLowerCase();
+  const list = S.jobs.filter(openJob)
+    .filter(j => !q || (j.title + " " + j.category + " " + emp(j.employerId).name).toLowerCase().includes(q))
+    .filter(j => !filters.town || j.town === filters.town)
+    .filter(j => !filters.type || j.type === filters.type)
+    .sort((a, b) => (b.featured - a.featured) || a.closing.localeCompare(b.closing));
+  return `<section class="hero"><div class="wrap">
+      <p class="eyebrow">Standerton · Lekwa · Mpumalanga</p>
+      <h1>Sawubona, ${esc(S.me.name.split(" ")[0])}. Find work near you.</h1>
+      <p>Jobs, learnerships and internships. Free for job seekers, always.</p>
+      <form class="search" id="search" role="search">
+        <label style="position:absolute;left:-9999px" for="f-q">Keyword</label>
+        <input id="f-q" name="q" value="${esc(filters.q)}" placeholder="Job title or keyword, e.g. cashier">
+        <select id="f-town" name="town" aria-label="Town"><option value="">All towns</option>${TOWNS.map(t => `<option ${filters.town === t ? "selected" : ""}>${t}</option>`).join("")}</select>
+        <select id="f-type" name="type" aria-label="Job type"><option value="">All types</option>${Object.entries(TYPES).map(([k, v]) => `<option value="${k}" ${filters.type === k ? "selected" : ""}>${v}</option>`).join("")}</select>
+      </form>
+    </div></section>
+    <div class="wrap"><p class="muted small"><strong>${list.length}</strong> open ${list.length === 1 ? "job" : "jobs"}</p>
+    <div class="list">${list.map(j => jobCard(j)).join("") || '<div class="card empty">No open jobs match. Try another keyword or town.</div>'}</div></div>`;
+}
+
+function jobDetail(id) {
+  const j = job(id), e = emp(j.employerId);
+  const mine = S.apps.find(a => a.jobId === id && a.applicantId === "me" && a.status !== "withdrawn");
+  const saved = S.saved.includes(id);
+  const seeker = S.role === "seeker";
+  sheet(`<div class="between"><div><h2>${esc(j.title)}</h2><p class="muted">${esc(e.name)} ${e.verified ? '<span class="chip teal">Verified</span>' : ""}</p></div>
+      <button class="btn plain sm" data-close-btn aria-label="Close">Close</button></div>
+    <div class="row"><span class="chip">${TYPES[j.type]}</span><span class="chip">${esc(j.town)}</span><span class="chip salary">${salary(j)}</span>
+      <span class="chip ${daysLeft(j.closing) <= 5 ? "amber" : ""}">${closes(j.closing)}</span></div>
+    <div><h3>About the job</h3><p>${esc(j.desc)}</p></div>
+    <div><h3>What you need</h3><p>${esc(j.reqs)}</p><p class="muted small">Minimum: ${esc(j.qual)} · Category: ${esc(j.category)}</p></div>
+    ${seeker ? (mine ? `<p class="ok">You applied. Status: ${STATUS[mine.status]}</p>`
+      : `<div class="row"><button class="btn" data-apply="${id}">Apply now, free</button>
+         <button class="btn ghost" data-save="${id}">${saved ? "Saved ✓" : "Save job"}</button></div>`) : ""}
+    <p class="muted small">WORKLINK never asks job seekers for money. Report any employer who asks you to pay.</p>`);
+}
+
+function applyForm(id) {
+  const j = job(id);
+  sheet(`<h2>Apply: ${esc(j.title)}</h2>
+    <p class="muted">${esc(emp(j.employerId).name)} will see your profile and CV. They lose access if you withdraw.</p>
+    <div class="card"><div class="between"><div><h3>Your CV</h3><p class="muted small">${S.cv.template[0].toUpperCase() + S.cv.template.slice(1)} template · ${esc(S.me.name)}</p></div>
+      <button class="linkish" data-goto="cv">Edit CV</button></div></div>
+    <form id="apply-form" data-job="${id}" class="list">
+      <label for="cover">Short message to the employer (optional)<textarea id="cover" maxlength="600" placeholder="Why are you a good fit? When can you start?"></textarea></label>
+      <label class="check"><input type="checkbox" id="share-ok" ${S.me.consents.share ? "checked" : ""} required> I agree that this employer may view my CV for this job.</label>
+      <div class="row"><button class="btn" type="submit">Send application</button><button class="btn plain" type="button" data-close-btn>Cancel</button></div>
+    </form>`);
+}
+
+function vApps() {
+  const mine = S.apps.filter(a => a.applicantId === "me");
+  if (!mine.length) return `<div class="wrap"><h1>My applications</h1><div class="card empty">You haven't applied yet. <button class="linkish" data-goto="jobs">Find jobs</button></div></div>`;
+  return `<div class="wrap"><h1>My applications</h1><div class="list">${mine.map(a => {
+    const j = job(a.jobId), bad = a.status === "unsuccessful" || a.status === "withdrawn";
+    const step = bad ? FLOW.length : FLOW.indexOf(a.status) + 1;
+    return `<div class="card"><div class="between"><div style="min-width:0"><h3>${esc(j.title)}</h3><p class="muted small">${esc(emp(j.employerId).name)} · applied ${when(a.history[0].at)}</p></div>
+      <span class="chip ${a.status === "hired" || a.status === "shortlisted" || a.status === "interview" ? "teal" : bad ? "red" : ""}">${STATUS[a.status]}</span></div>
+      <div class="timeline ${bad ? "bad" : ""}" aria-label="Progress: ${STATUS[a.status]}">${FLOW.map((_, i) => `<span class="${i < step ? "on" : ""}"></span>`).join("")}</div>
+      <p class="muted small">Submitted → Viewed → Shortlisted → Interview → Hired</p>
+      ${["submitted", "viewed", "shortlisted", "interview"].includes(a.status) ? `<div class="row"><button class="btn plain sm" data-job="${j.id}">View job</button><button class="btn danger sm" data-withdraw="${a.id}">Withdraw</button></div>` : ""}
+    </div>`; }).join("")}</div></div>`;
+}
+
+function vSaved() {
+  const list = S.saved.map(job).filter(Boolean);
+  return `<div class="wrap"><h1>Saved jobs</h1><div class="list">${list.map(j => jobCard(j, { extra: openJob(j) ? "" : '<span class="chip red">Closed</span>' })).join("") || '<div class="card empty">Tap "Save job" on any job to keep it here.</div>'}</div></div>`;
+}
+
+function cvPreview() {
+  const c = S.cv, m = S.me;
+  return `<div class="cv ${c.template}">
+    <div><h2>${esc(m.name)}</h2><p class="meta">${esc(m.town)}, Mpumalanga · ${esc(m.phone)} · ${esc(m.email)}</p></div>
+    ${c.objective ? `<div><h4>Career objective</h4><p>${esc(c.objective)}</p></div>` : ""}
+    ${c.education.length ? `<div><h4>Education</h4>${c.education.map(e => `<div class="item"><strong>${esc(e.what)}</strong><span class="meta">${esc(e.where)} · ${esc(e.year)}</span></div>`).join("")}</div>` : ""}
+    ${c.experience.length ? `<div><h4>Experience</h4>${c.experience.map(e => `<div class="item"><strong>${esc(e.role)}</strong><span class="meta">${esc(e.org)} · ${esc(e.years)}</span><span>${esc(e.did)}</span></div>`).join("")}</div>` : ""}
+    ${c.skills ? `<div><h4>Skills and languages</h4><p>${esc(c.skills)}</p></div>` : ""}
+    ${c.references.length ? `<div><h4>References</h4>${c.references.map(r => `<div class="item"><strong>${esc(r.name)}</strong><span class="meta">${esc(r.rel)} · ${esc(r.phone)}</span></div>`).join("")}</div>` : ""}
+  </div>`;
+}
+
+function repeatBlock(kind, items, fields) {
+  return items.map((it, i) => `<div class="repeat">${fields.map(([k, label, ta]) =>
+    ta ? `<label>${label}<textarea data-cv="${kind}" data-i="${i}" data-k="${k}" id="cv-${kind}-${i}-${k}">${esc(it[k])}</textarea></label>`
+       : `<label>${label}<input data-cv="${kind}" data-i="${i}" data-k="${k}" id="cv-${kind}-${i}-${k}" value="${esc(it[k])}"></label>`).join("")}
+    <button type="button" class="linkish" data-cv-del="${kind}" data-i="${i}">Remove</button></div>`).join("") +
+    `<button type="button" class="btn plain sm" data-cv-add="${kind}">+ Add ${kind === "education" ? "school or course" : kind === "experience" ? "job or volunteer work" : "reference"}</button>`;
+}
+
+function vCv() {
+  const c = S.cv;
+  return `<div class="wrap"><div class="between"><h1>CV builder</h1><span class="chip teal">Free</span></div>
+    <p class="muted">No experience? That's fine. Add school, volunteer work, or jobs you did for family or neighbours.</p>
+    <div class="card"><h3>Template</h3><div class="tpl">${["classic", "modern", "simple"].map(t => `<button data-tpl="${t}" aria-pressed="${c.template === t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join("")}</div></div>
+    <div class="card"><h3>Career objective</h3><label for="cv-objective" style="position:absolute;left:-9999px">Career objective</label>
+      <textarea id="cv-objective" data-cv="objective">${esc(c.objective)}</textarea></div>
+    <div class="card"><h3>Education</h3>${repeatBlock("education", c.education, [["what", "Qualification"], ["where", "School or college"], ["year", "Year"]])}</div>
+    <div class="card"><h3>Work experience</h3>${repeatBlock("experience", c.experience, [["role", "Role"], ["org", "Where"], ["years", "When"], ["did", "What you did", true]])}</div>
+    <div class="card"><h3>Skills and languages</h3><label for="cv-skills" class="muted small" style="font-weight:400">Separate with commas</label><textarea id="cv-skills" data-cv="skills">${esc(c.skills)}</textarea></div>
+    <div class="card"><h3>References</h3>${repeatBlock("references", c.references, [["name", "Name"], ["rel", "Relationship"], ["phone", "Phone"]])}</div>
+    <div class="card"><div class="between"><h3>Preview</h3><button class="btn sm" id="pdf">Download PDF</button></div><div id="cv-preview">${cvPreview()}</div></div>
+  </div>`;
+}
+
+function vProfile() {
+  const m = S.me, c = m.consents;
+  return `<div class="wrap"><h1>Profile</h1>
+    <form class="card" id="profile-form">
+      <div class="grid2"><label>Full name<input id="p-name" value="${esc(m.name)}" required></label>
+      <label>Phone<input id="p-phone" value="${esc(m.phone)}" inputmode="tel"></label></div>
+      <div class="grid2"><label>Email<input id="p-email" value="${esc(m.email)}" type="email"></label>
+      <label>Town<select id="p-town">${TOWNS.map(t => `<option ${m.town === t ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <label>Highest qualification<select id="p-qual">${QUALS.map(q => `<option ${m.qual === q ? "selected" : ""}>${q}</option>`).join("")}</select></label>
+      <button class="btn" type="submit">Save profile</button>
+    </form>
+    <div class="card"><h3>Your privacy choices</h3>
+      <label class="check"><input type="checkbox" id="c-email" ${c.email ? "checked" : ""}> Email me new jobs and application updates</label>
+      <label class="check"><input type="checkbox" id="c-whatsapp" ${c.whatsapp ? "checked" : ""}> Send me WhatsApp messages about my applications</label>
+      <label class="check"><input type="checkbox" id="c-share" ${c.share ? "checked" : ""}> Let employers I apply to view my CV</label>
+      <p class="muted small">You can change these at any time. Every change is recorded, as POPIA requires.</p>
+    </div>
+    <div class="card"><h3>Delete my account</h3><p class="muted small">We'll remove your profile, CV and applications within 30 days.</p>
+      <div><button class="btn danger sm" id="delete-req">Request deletion</button></div></div>
+  </div>`;
+}
+
+/* ---------- Employer ---------- */
+function vDash() {
+  const e = emp(S.myEmployer);
+  const mine = S.jobs.filter(j => j.employerId === e.id);
+  const apps = S.apps.filter(a => mine.some(j => j.id === a.jobId) && a.status !== "withdrawn");
+  return `<section class="hero"><div class="wrap"><p class="eyebrow">Employer</p><h1>${esc(e.name)}</h1>
+      <div class="row"><span class="chip ${e.verified ? "teal" : "amber"}">${e.verified ? "Verified employer" : "Verification pending"}</span><span class="chip navy">${PLANS[e.plan][0]}</span></div></div></section>
+    <div class="wrap">
+      <div class="stats"><div class="stat"><b>${mine.filter(openJob).length}</b><span class="muted small">Live jobs</span></div>
+        <div class="stat"><b>${apps.length}</b><span class="muted small">Applicants</span></div>
+        <div class="stat"><b>${apps.filter(a => a.status === "submitted").length}</b><span class="muted small">New</span></div></div>
+      <div class="between"><h2>Your jobs</h2><button class="btn sm" data-goto="post">Post a job</button></div>
+      <div class="list">${mine.map(j => {
+        const n = S.apps.filter(a => a.jobId === j.id && a.status !== "withdrawn").length;
+        const st = j.status === "published" ? (openJob(j) ? ["Live", "teal"] : ["Closed", ""]) : j.status === "pending_review" ? ["Waiting for approval", "amber"] : j.status === "rejected" ? ["Not approved", "red"] : ["Closed", ""];
+        return `<div class="card"><div class="between"><div style="min-width:0"><h3>${esc(j.title)}</h3><p class="muted small">${esc(j.town)} · ${closes(j.closing)}</p></div><span class="chip ${st[1]}">${st[0]}</span></div>
+          ${j.rejectReason ? `<p class="small" style="color:var(--red)">Reason: ${esc(j.rejectReason)}</p>` : ""}
+          <div class="row"><button class="btn sm" data-applicants="${j.id}" ${n ? "" : "disabled"}>${n} applicant${n === 1 ? "" : "s"}</button>
+          ${j.status === "published" && openJob(j) ? `<button class="btn plain sm" data-close-job="${j.id}">Close job</button>` : ""}</div></div>`;
+      }).join("") || '<div class="card empty">No jobs yet. Post your first job.</div>'}</div>
+    </div>`;
+}
+
+function applicants(jobId) {
+  const j = job(jobId);
+  const list = S.apps.filter(a => a.jobId === jobId && a.status !== "withdrawn");
+  sheet(`<div class="between"><div><h2>Applicants</h2><p class="muted">${esc(j.title)}</p></div><button class="btn plain sm" data-close-btn>Close</button></div>
+    <p class="muted small">You only see people who applied to your jobs. Every CV you open is logged.</p>
+    <div class="list">${list.map(a => { const p = person(a.applicantId); return `<div class="card">
+      <div class="between"><div style="min-width:0"><h3>${esc(p.name)}</h3><p class="muted small">${esc(p.town)} · ${esc(p.qual)}</p></div><span class="chip">${STATUS[a.status]}</span></div>
+      ${a.cover ? `<p class="small">"${esc(a.cover)}"</p>` : ""}
+      <div class="row"><button class="btn plain sm" data-cv-view="${a.id}">Open CV</button>
+      <label for="st-${a.id}" style="position:absolute;left:-9999px">Status</label>
+      <select id="st-${a.id}" data-status="${a.id}" style="width:auto;min-height:36px;padding:6px 10px">${["viewed", "shortlisted", "interview", "unsuccessful", "hired"].map(s => `<option value="${s}" ${a.status === s ? "selected" : ""}>${STATUS[s]}</option>`).join("")}${a.status === "submitted" ? '<option value="submitted" selected>New</option>' : ""}</select></div>
+    </div>`; }).join("") || '<div class="empty">No applicants yet.</div>'}</div>`);
+}
+
+function cvView(appId) {
+  const a = S.apps.find(x => x.id === appId), p = person(a.applicantId);
+  if (a.status === "submitted") setStatus(a, "viewed", true);
+  const body = a.applicantId === "me" ? cvPreview() : `<div class="cv classic"><div><h2>${esc(p.name)}</h2><p class="meta">${esc(p.town)}, Mpumalanga · ${esc(p.phone)}</p></div>
+      <div><h4>Profile</h4><p>${esc(p.headline)}</p></div><div><h4>Education</h4><p>${esc(p.qual)}</p></div>
+      <div><h4>Experience</h4><p>${esc(p.exp)}</p></div><div><h4>Skills</h4><p>${esc(p.skills.join(", "))}</p></div></div>`;
+  sheet(`<div class="between"><h2>CV</h2><button class="btn plain sm" data-back-applicants="${a.jobId}">Back</button></div>${body}`);
+}
+
+function setStatus(a, s, quiet) {
+  if (a.status === s) return;
+  a.status = s; a.history.push({ s, at: new Date().toISOString() });
+  const j = job(a.jobId);
+  if (a.applicantId === "me") notify("me", `${emp(j.employerId).name}: your application for ${j.title} is now "${STATUS[s]}".`);
+  if (!quiet) toast(`Status updated. The candidate gets an email.`);
+  save();
+}
+
+function vPost() {
+  return `<div class="wrap"><h1>Post a job</h1>
+    <p class="muted">Our team checks every job before it goes live, usually within a day.</p>
+    <form class="card" id="post-form">
+      <label>Job title<input id="j-title" required minlength="3" maxlength="120" placeholder="e.g. Forklift Operator"></label>
+      <div class="grid2"><label>Town<select id="j-town">${TOWNS.map(t => `<option>${t}</option>`).join("")}</select></label>
+      <label>Job type<select id="j-type">${Object.entries(TYPES).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label></div>
+      <div class="grid2"><label>Category<select id="j-cat">${CATS.map(c => `<option>${c}</option>`).join("")}</select></label>
+      <label>Minimum qualification<select id="j-qual">${QUALS.map(q => `<option>${q}</option>`).join("")}</select></label></div>
+      <div class="grid2"><label>Salary from (R per month)<input id="j-min" type="number" min="0" inputmode="numeric" placeholder="4500"></label>
+      <label>Salary to (R per month)<input id="j-max" type="number" min="0" inputmode="numeric" placeholder="5500"></label></div>
+      <label>Closing date<input id="j-close" type="date" min="${day(1)}" value="${day(14)}" required></label>
+      <label>Job description<textarea id="j-desc" required placeholder="What will the person do? Where and when?"></textarea></label>
+      <label>Requirements<textarea id="j-reqs" placeholder="Licence, experience, languages…"></textarea></label>
+      <fieldset class="list" style="border:0;padding:0;margin:0"><legend style="font-weight:600;font-size:.9rem;margin-bottom:6px">Ad type</legend>
+        <label class="check"><input type="radio" name="tier" value="starter" checked> Starter ad · R149</label>
+        <label class="check"><input type="radio" name="tier" value="featured"> Featured ad · R249 (top of search, in job alerts)</label></fieldset>
+      <p class="notice">Demo: no payment is taken.</p>
+      <button class="btn" type="submit">Submit for approval</button>
+    </form></div>`;
+}
+
+function vCompany() {
+  const e = emp(S.myEmployer);
+  return `<div class="wrap"><h1>Company profile</h1>
+    <form class="card" id="company-form">
+      <label>Company name<input id="co-name" value="${esc(e.name)}" required></label>
+      <div class="grid2"><label>Industry<input id="co-ind" value="${esc(e.industry)}"></label>
+      <label>Town<select id="co-town">${TOWNS.map(t => `<option ${e.town === t ? "selected" : ""}>${t}</option>`).join("")}</select></label></div>
+      <button class="btn" type="submit">Save</button></form>
+    <div class="card"><h3>Plan</h3><div class="list">${Object.entries(PLANS).map(([k, [n, p]]) =>
+      `<label class="check"><input type="radio" name="plan" value="${k}" ${e.plan === k ? "checked" : ""}> <span><strong>${n}</strong> · ${p}</span></label>`).join("")}</div>
+      <p class="muted small">Payments by card or EFT will be added before launch.</p></div></div>`;
+}
+
+/* ---------- Admin ---------- */
+function vReview() {
+  const pend = S.jobs.filter(j => j.status === "pending_review");
+  return `<div class="wrap"><h1>Jobs waiting for approval</h1>
+    <p class="muted">Check each job is real, legal and asks nothing from job seekers in money.</p>
+    <div class="list">${pend.map(j => { const e = emp(j.employerId); return `<div class="card">
+      <div class="between"><div style="min-width:0"><h3>${esc(j.title)}</h3><p class="muted small">${esc(e.name)} · ${esc(j.town)} · ${salary(j)}</p></div>
+      <span class="chip ${e.verified ? "teal" : "amber"}">${e.verified ? "Verified" : "Not verified"}</span></div>
+      <p class="small">${esc(j.desc)}</p>
+      ${e.verified ? "" : '<p class="notice">Verify this employer first. Unverified employers cannot go live.</p>'}
+      <div class="row"><button class="btn sm" data-approve="${j.id}" ${e.verified ? "" : "disabled"}>Approve and publish</button>
+      <button class="btn danger sm" data-reject="${j.id}">Reject</button></div></div>`; }).join("") || '<div class="card empty">All caught up. No jobs waiting.</div>'}</div></div>`;
+}
+
+function vVerify() {
+  return `<div class="wrap"><h1>Employers</h1><div class="list">${S.employers.map(e => `<div class="card">
+    <div class="between"><div style="min-width:0"><h3>${esc(e.name)}</h3><p class="muted small">${esc(e.industry)} · ${esc(e.town)} · ${PLANS[e.plan][0]}</p></div>
+    <span class="chip ${e.verified ? "teal" : "amber"}">${e.verified ? "Verified" : "Pending"}</span></div>
+    ${e.verified ? "" : `<p class="small muted">Check CIPC registration and phone the contact person before verifying.</p><div><button class="btn sm" data-verify="${e.id}">Mark as verified</button></div>`}
+  </div>`).join("")}</div></div>`;
+}
+
+function vOverview() {
+  const live = S.jobs.filter(openJob).length, apps = S.apps.filter(a => a.status !== "withdrawn").length;
+  const rev = S.employers.reduce((s, e) => s + (e.plan === "pro" ? 499 : 0), 0) + S.jobs.reduce((s, j) => s + (j.status === "published" && S.employers.find(e => e.id === j.employerId)?.plan !== "pro" ? (j.featured ? 249 : 149) : 0), 0);
+  return `<div class="wrap"><h1>Overview</h1>
+    <div class="stats"><div class="stat"><b>${live}</b><span class="muted small">Live jobs</span></div>
+    <div class="stat"><b>${apps}</b><span class="muted small">Applications</span></div>
+    <div class="stat"><b>${S.employers.filter(e => e.verified).length}</b><span class="muted small">Verified employers</span></div></div>
+    <div class="card"><h3>Demo revenue this month</h3><p style="font-family:var(--display);font-size:1.8rem;font-weight:800" class="salary">${rand(rev)}</p>
+    <p class="muted small">From employer ads and plans. Job seekers pay nothing.</p></div>
+    <div class="card"><h3>Recent activity</h3>${S.notes.slice(0, 8).map(n => `<p class="small"><span class="muted">${when(n.at)}</span> · ${esc(n.text)}</p>`).join("")}</div></div>`;
+}
+
+const VIEWS = {
+  seeker: { jobs: vJobs, apps: vApps, saved: vSaved, cv: vCv, profile: vProfile },
+  employer: { dash: vDash, post: vPost, company: vCompany },
+  admin: { review: vReview, verify: vVerify, overview: vOverview },
+};
+
+/* ---------- Events ---------- */
+$("#role").addEventListener("change", e => { S.role = e.target.value; closeSheet(); render(); window.scrollTo({ top: 0 }); });
+$("#home-btn").addEventListener("click", () => go(TABS[S.role][0][0]));
+$("#reset").addEventListener("click", e => {
+  if (e.target.dataset.sure) { S = seed(); tab = {}; filters = { q: "", town: "", type: "" }; render(); toast("Demo data reset"); delete e.target.dataset.sure; e.target.textContent = "Reset demo data"; }
+  else { e.target.dataset.sure = "1"; e.target.textContent = "Tap again to reset everything"; }
+});
+$("#bell").addEventListener("click", () => {
+  const list = inbox();
+  sheet(`<div class="between"><h2>Notifications</h2><button class="btn plain sm" data-close-btn>Close</button></div>
+    <div class="list">${list.map(n => `<div class="card"><p>${esc(n.text)}</p><p class="muted small">${when(n.at)}${S.role === "seeker" ? " · also sent by email" : ""}</p></div>`).join("") || '<p class="empty">Nothing yet.</p>'}</div>`);
+  list.forEach(n => n.read = true); save(); render();
+});
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button, [data-job]"); if (!t) return;
+  const d = t.dataset;
+  if (d.tab) return go(d.tab);
+  if (d.goto) { closeSheet(); return go(d.goto); }
+  if (d.closeBtn !== undefined) return closeSheet();
+  if (d.job && !d.apply) return jobDetail(d.job);
+  if (d.apply) return applyForm(d.apply);
+  if (d.save) {
+    const i = S.saved.indexOf(d.save); i >= 0 ? S.saved.splice(i, 1) : S.saved.push(d.save);
+    save(); jobDetail(d.save); render(); return toast(i >= 0 ? "Removed from saved" : "Saved");
+  }
+  if (d.withdraw) {
+    if (!d.sure) { t.dataset.sure = "1"; t.textContent = "Tap again to withdraw"; return; }
+    const a = S.apps.find(x => x.id === d.withdraw); a.status = "withdrawn"; a.history.push({ s: "withdrawn", at: new Date().toISOString() });
+    render(); return toast("Application withdrawn. The employer can no longer see your CV.");
+  }
+  if (d.tpl) { S.cv.template = d.tpl; return render(); }
+  if (d.cvAdd) {
+    const blank = { education: { what: "", where: "", year: "" }, experience: { role: "", org: "", years: "", did: "" }, references: { name: "", rel: "", phone: "" } };
+    S.cv[d.cvAdd].push(blank[d.cvAdd]); return render();
+  }
+  if (d.cvDel) { S.cv[d.cvDel].splice(+d.i, 1); return render(); }
+  if (t.id === "pdf") return toast("PDF download comes with the hosted version. The preview shows your CV.");
+  if (t.id === "delete-req") { t.disabled = true; t.textContent = "Deletion requested"; return toast("Request received. We'll confirm by email."); }
+  if (d.applicants) return applicants(d.applicants);
+  if (d.backApplicants) return applicants(d.backApplicants);
+  if (d.cvView) return cvView(d.cvView);
+  if (d.closeJob) { job(d.closeJob).status = "closed"; render(); return toast("Job closed. No new applications."); }
+  if (d.approve) {
+    const j = job(d.approve); j.status = "published"; j.posted = day(0);
+    notify(j.employerId, `Your job "${j.title}" is approved and live.`); notify("admin", `Approved: ${j.title}`);
+    render(); return toast("Published. It now shows in job search.");
+  }
+  if (d.reject) {
+    sheet(`<h2>Reject job</h2><form id="reject-form" data-job="${d.reject}" class="list">
+      <label>Reason the employer will see<textarea id="reject-reason" required placeholder="e.g. Asks applicants to pay for training"></textarea></label>
+      <div class="row"><button class="btn danger" type="submit">Reject job</button><button class="btn plain" type="button" data-close-btn>Cancel</button></div></form>`);
+    return;
+  }
+  if (d.verify) { const e2 = emp(d.verify); e2.verified = true; notify(e2.id, "Your company is verified."); render(); return toast(`${e2.name} verified`); }
+});
+
+document.addEventListener("submit", e => {
+  e.preventDefault();
+  const f = e.target;
+  if (f.id === "search") return;
+  if (f.id === "apply-form") {
+    const id = f.dataset.job, j = job(id);
+    S.apps.unshift({ id: uid("a"), jobId: id, applicantId: "me", status: "submitted", cover: $("#cover").value.trim(), notes: "", history: [{ s: "submitted", at: new Date().toISOString() }] });
+    notify("me", `Application sent: ${j.title} at ${emp(j.employerId).name}.`);
+    notify(j.employerId, `New applicant: ${S.me.name} applied for ${j.title}.`);
+    closeSheet(); render(); return toast("Application sent. Track it in My applications.");
+  }
+  if (f.id === "profile-form") {
+    Object.assign(S.me, { name: $("#p-name").value.trim(), phone: $("#p-phone").value.trim(), email: $("#p-email").value.trim(), town: $("#p-town").value, qual: $("#p-qual").value });
+    render(); return toast("Profile saved");
+  }
+  if (f.id === "post-form") {
+    const tier = f.querySelector('[name="tier"]:checked').value;
+    const min = +$("#j-min").value || 0, max = +$("#j-max").value || 0;
+    if (max && min && max < min) return toast("Salary 'to' must be more than 'from'.");
+    S.jobs.unshift({ id: uid("j"), employerId: S.myEmployer, title: $("#j-title").value.trim(), town: $("#j-town").value, type: $("#j-type").value, category: $("#j-cat").value,
+      qual: $("#j-qual").value, salaryMin: min, salaryMax: max, closing: $("#j-close").value, featured: tier === "featured", desc: $("#j-desc").value.trim(),
+      reqs: $("#j-reqs").value.trim() || "None stated.", status: "pending_review", posted: day(0) });
+    notify("admin", `New job to review: ${$("#j-title").value.trim()}`);
+    go("dash"); return toast("Submitted. Switch to Admin to approve it.");
+  }
+  if (f.id === "company-form") {
+    Object.assign(emp(S.myEmployer), { name: $("#co-name").value.trim(), industry: $("#co-ind").value.trim(), town: $("#co-town").value });
+    render(); return toast("Company saved");
+  }
+  if (f.id === "reject-form") {
+    const j = job(f.dataset.job); j.status = "rejected"; j.rejectReason = $("#reject-reason").value.trim();
+    notify(j.employerId, `Your job "${j.title}" was not approved: ${j.rejectReason}`);
+    closeSheet(); render(); return toast("Job rejected. The employer was told why.");
+  }
+});
+
+let typing;
+document.addEventListener("input", e => {
+  const el = e.target, d = el.dataset;
+  if (el.id === "f-q") { clearTimeout(typing); typing = setTimeout(() => { filters.q = el.value; const pos = el.selectionStart; render(); const n = $("#f-q"); n.focus(); n.setSelectionRange(pos, pos); }, 250); return; }
+  if (d.cv) {
+    if (d.i !== undefined) S.cv[d.cv][+d.i][d.k] = el.value; else S.cv[d.cv] = el.value;
+    const p = $("#cv-preview"); if (p) p.innerHTML = cvPreview(); save();
+  }
+});
+document.addEventListener("change", e => {
+  const el = e.target;
+  if (el.id === "f-town") { filters.town = el.value; return render(); }
+  if (el.id === "f-type") { filters.type = el.value; return render(); }
+  if (el.dataset.status) { const a = S.apps.find(x => x.id === el.dataset.status); setStatus(a, el.value); applicants(a.jobId); return render(); }
+  if (el.name === "plan") { emp(S.myEmployer).plan = el.value; render(); return toast(`Plan changed to ${PLANS[el.value][0]}`); }
+  const cmap = { "c-email": "email", "c-whatsapp": "whatsapp", "c-share": "share" };
+  if (cmap[el.id]) { S.me.consents[cmap[el.id]] = el.checked; save(); return toast(el.checked ? "Choice saved: on" : "Choice saved: off"); }
+});
+
+render();
+})();
+</script>
