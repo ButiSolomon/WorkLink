@@ -15,8 +15,9 @@ Added in round two:
 
 - **Scam protection:** verified-employer badges on every job, a "Lekwa WorkLink never charges you" notice,
   "Report this job" for job seekers, and a reports queue where admins remove or keep a job.
-- **Low data:** a data saver switch (no web fonts, compact cards, PDF tool loads on demand,
-  smaller photos) and "Share on WhatsApp" on every job. The demo is English only.
+- **Low data, more languages:** a data saver switch (no web fonts, compact cards, PDF tool loads on demand,
+  smaller photos), English / isiZulu / Sesotho for the main job-seeker screens (draft translations that
+  native speakers must check before launch), and "Share on WhatsApp" on every job.
 - **CV builder:** a quick no-experience CV built from taps (school, piece jobs, volunteering, strengths,
   languages), PDF download (jsPDF, loaded only when tapped; saving uses the claude.ai downloads capability),
   and phone photos of ID and certificates (compressed and kept on the device; certificates go with
