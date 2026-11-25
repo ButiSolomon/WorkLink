@@ -1,6 +1,6 @@
 # Brand
 
-The brand kit and clickable prototype live in the WORKLINK project on Claude.
+The brand kit and clickable prototype live in the Lekwa WorkLink project on Claude.
 
 | Token | Hex | Use |
 | --- | --- | --- |

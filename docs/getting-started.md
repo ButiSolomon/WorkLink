@@ -1,11 +1,11 @@
-# Getting WORKLINK online (no coding needed)
+# Getting Lekwa WorkLink online (no coding needed)
 
 This guide takes you from the code on GitHub to a link you can open on your phone. It takes about 20 minutes.
 You will create two free accounts: **Supabase** (the database) and **Vercel** (the website host).
 Sign up for both with the same GitHub account that owns the `worklink` repository.
 
 > Good to know: Vercel's free "Hobby" plan is for personal, non-commercial use. It is fine for testing.
-> Before WORKLINK takes real payments from employers, upgrade to Vercel Pro (about US$20/month).
+> Before Lekwa WorkLink takes real payments from employers, upgrade to Vercel Pro (about US$20/month).
 
 ---
 
@@ -19,7 +19,7 @@ Sign up for both with the same GitHub account that owns the `worklink` repositor
    - **Region:** choose the one closest to South Africa in the list.
 4. Click **Create new project** and wait about two minutes until it says the project is ready.
 
-### Load the WORKLINK tables
+### Load the Lekwa WorkLink tables
 
 You will copy three files from GitHub into Supabase, **in this order**:
 

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* WORKLINK brand tokens (see docs/brand.md) */
+/* Lekwa WorkLink brand tokens (see docs/brand.md) */
 @theme {
   --color-navy-950: #071427;
   --color-navy-900: #0b1f3a;

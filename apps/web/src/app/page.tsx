@@ -21,7 +21,7 @@ export default function HomePage() {
             Local jobs, learnerships and a free CV, all from your phone.
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/80">
-            WORKLINK is free for job seekers. Always. No fees to search, build a CV or apply.
+            Lekwa WorkLink is free for job seekers. Always. No fees to search, build a CV or apply.
           </p>
           <div className="mt-8 max-w-3xl">
             <SearchForm />
@@ -41,7 +41,7 @@ export default function HomePage() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-12">
-        <h2 className="font-display text-2xl font-bold text-navy-900">How WORKLINK works</h2>
+        <h2 className="font-display text-2xl font-bold text-navy-900">How Lekwa WorkLink works</h2>
         <ol className="mt-6 grid gap-4 sm:grid-cols-3">
           {steps.map((s, i) => (
             <li key={s.title} className="rounded-2xl border border-line bg-white p-5">
