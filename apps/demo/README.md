@@ -11,6 +11,18 @@ It covers the V1 flows end to end:
   change application status, post a job (goes to review), close a job, company profile and plan.
 - **Admin:** approve or reject jobs (unverified employers cannot go live), verify employers, overview.
 
+Added in round two:
+
+- **Scam protection:** verified-employer badges on every job, a "WORKLINK never charges you" notice,
+  "Report this job" for job seekers, and a reports queue where admins remove or keep a job.
+- **Low data, more languages:** a data saver switch (no web fonts, compact cards, PDF tool loads on demand,
+  smaller photos), English / isiZulu / Sesotho for the main job-seeker screens (draft translations that
+  native speakers must check before launch), and "Share on WhatsApp" on every job.
+- **CV builder:** a quick no-experience CV built from taps (school, piece jobs, volunteering, strengths,
+  languages), PDF download (jsPDF, loaded only when tapped; saving uses the claude.ai downloads capability),
+  and phone photos of ID and certificates (compressed and kept on the device; certificates go with
+  applications, the ID copy never does).
+
 Use the **View as** menu at the top to switch between job seeker, employer and admin.
 "Reset demo data" in the footer restores the sample data.
 
@@ -22,4 +34,5 @@ falls back to system fonts offline.
 
 The real app lives in `apps/web` with Supabase. This demo is for showing the product
 and testing flows with people in Standerton before the backend is set up.
-Not included in the demo: real sign-in, PDF download, emails/WhatsApp and payments.
+Not included in the demo: real sign-in, sending emails/WhatsApp messages, and payments.
+When hosted outside claude.ai, the PDF button needs a normal browser download in place of the downloads capability.
